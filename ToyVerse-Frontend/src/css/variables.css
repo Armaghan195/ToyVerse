@@ -1,0 +1,38 @@
+:root {
+  /* Toy Town Palette */
+  --color-bg: #eaf6f6;
+  --color-surface: #ffffff;
+
+  --color-primary-text: #333333;
+  --color-teal: #2cb1bc;
+  --color-orange: #f25f33;
+
+  /* Missing Accents */
+  --accent-blue: #3498db;
+  --accent-orange: #e67e22;
+  --gradient-primary: linear-gradient(135deg, #2cb1bc 0%, #3498db 100%);
+
+  /* For discount tags */
+
+  /* Pastel Card Colors */
+  --color-card-blue: #d7effe;
+  --color-card-yellow: #fcf6d6;
+  --color-card-pink: #fde8e4;
+  --color-card-purple: #e0dcf5;
+  --color-card-green: #dcf5e6;
+
+  /* Fonts */
+  --font-heading: 'Fredoka One', cursive, sans-serif;
+  --font-body: 'Nunito', sans-serif;
+
+  /* Spacing & Radius */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 64px;
+  --radius-lg: 30px;
+  --radius-pill: 50px;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+}

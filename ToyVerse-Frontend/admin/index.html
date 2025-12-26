@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kid Toys</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/variables.css">
+    <link rel="stylesheet" href="/src/css/admin.css"> <!-- New Admin CSS -->
+</head>
+
+<body>
+
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>👑 Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active" data-tab="products">📦 Products</li>
+                <li data-tab="orders">🛒 Orders</li>
+                <li data-tab="logs">📜 Logs</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logout-btn">Logout_</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+
+            <!-- Products Section -->
+            <section id="products-section" class="tab-content active">
+                <header class="section-header">
+                    <h1>Product Inventory</h1>
+                    <button id="add-product-btn" class="action-btn">+ Add New Product</button>
+                </header>
+
+                <div class="table-container">
+                    <table class="data-table" id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Ref ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="tab-content">
+                <header class="section-header">
+                    <h1>Customer Orders</h1>
+                </header>
+                <div class="table-container">
+                    <table class="data-table" id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Logs Section -->
+            <section id="logs-section" class="tab-content">
+                <header class="section-header">
+                    <h1>Activity Logs</h1>
+                </header>
+                <div class="logs-container" id="logs-list">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Add Product</h2>
+            <form id="product-form">
+                <input type="hidden" id="prod-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="prod-title" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Product Images</label>
+                    <input type="file" id="prod-images-file" multiple accept="image/*">
+                    <p style="font-size:0.8rem; color:#666; margin-top:5px;">Or paste image URL:</p>
+                    <input type="text" id="prod-image-url" placeholder="https://example.com/image.jpg">
+                    <div id="image-preview" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="prod-category">
+                            <option value="Sets">Sets</option>
+                            <option value="Plushies">Plushies</option>
+                            <option value="Blocks">Blocks</option>
+                            <option value="Tech">Tech</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price ($)</label>
+                        <input type="number" step="0.01" id="prod-price" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="prod-desc" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Detailed Overview (Optional, HTML allowed)</label>
+                    <textarea id="prod-detailed-desc" rows="5"
+                        placeholder="Only visible if content is added..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" id="prod-stock" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Rating (0-5)</label>
+                        <input type="number" id="prod-rating" value="5" max="5" min="0">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/src/js/admin.js"></script>
+</body>
+
+</html>

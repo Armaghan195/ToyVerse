@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal - Access</title>
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <link rel="stylesheet" href="/src/css/variables.css" />
+    <style>
+        body {
+            background: #1a1a2e;
+            /* Darker theme for admin */
+            color: white;
+            overflow: hidden;
+        }
+
+        .admin-login-container {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #162447 0%, #1a1a2e 100%);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-box h1 {
+            margin-bottom: 2rem;
+            font-family: 'Fredoka One', cursive;
+            color: var(--accent-blue);
+            letter-spacing: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            color: white;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-blue);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            min-height: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-login-container">
+        <div class="login-box">
+            <h1>ADMIN ACCESS</h1>
+            <p class="error-msg" id="admin-error"></p>
+            <form id="admin-form">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="a-user" placeholder="admin" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <input type="password" id="a-pass" placeholder="????????????????????????" required style="flex:1;">
+                        <button type="button" id="toggle-pass" style="padding:0.6rem 0.8rem; border:1px solid #333; background:#222; color:#fff; border-radius:6px; cursor:pointer;">Show</button>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">ENTER SYSTEM</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from '/src/js/api.js';
+
+        const form = document.getElementById('admin-form');
+        const err = document.getElementById('admin-error');
+        const loginBtn = form.querySelector('.login-btn');
+        const passwordInput = document.getElementById('a-pass');
+        const toggleBtn = document.getElementById('toggle-pass');
+        // Toggle password visibility
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+            toggleBtn.textContent = isHidden ? 'Hide' : 'Show';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            err.innerText = '';
+
+            const username = document.getElementById('a-user').value;
+            const password = document.getElementById('a-pass').value;
+
+            // Disable button during request
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'AUTHENTICATING...';
+
+            try {
+                const response = await api.login(username, password);
+
+                if (response.user && response.user.role === 'admin') {
+                    // Admin login successful
+                    window.location.href = 'index.html';
+                } else {
+                    // User is not admin
+                    api.clearToken();
+                    err.innerText = "Access Denied: Admin privileges required";
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'ENTER SYSTEM';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                err.innerText = "Access Denied: Invalid credentials";
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'ENTER SYSTEM';
+            }
+        });
+    </script>
+</body>
+
+</html>

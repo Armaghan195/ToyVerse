@@ -1,0 +1,14 @@
+{
+    "name": "toyverse-backend",
+    "version": "1.0.0",
+    "description": "FastAPI Backend for ToyVerse",
+    "scripts": {
+        "postinstall": "python -m venv venv && .\\venv\\Scripts\\pip install -r requirements.txt",
+        "install-deps": ".\\venv\\Scripts\\pip install -r requirements.txt",
+        "dev": ".\\venv\\Scripts\\uvicorn app.main:app --reload",
+        "start": ".\\venv\\Scripts\\uvicorn app.main:app",
+        "test": ".\\venv\\Scripts\\python -m pytest"
+    },
+    "author": "ToyVerse Team",
+    "license": "MIT"
+}

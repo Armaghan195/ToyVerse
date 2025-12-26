@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toy Town - Catalog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/variables.css">
+    <link rel="stylesheet" href="/src/css/search.css">
+</head>
+
+<body>
+    <div id="catalog-app">
+        <!-- Navbar -->
+        <header class="navbar-container" id="catalog-navbar"></header>
+
+        <main class="container catalog-page">
+
+            <!-- Top Banner -->
+            <div class="page-banner">
+                <div class="banner-content">
+                    <h1>Gifts and Toys for Everyone!</h1>
+                    <p>Encourage building, engineering, and creative play.</p>
+                </div>
+                <div class="banner-img">
+                    ✈️
+                </div>
+            </div>
+
+            <div class="catalog-layout">
+                <!-- Sidebar Filter -->
+                <aside class="filter-sidebar">
+                    <div class="filter-group">
+                        <h3>Search</h3>
+                        <input type="text" id="search-input" placeholder="Search toys..."
+                            style="width:100%; padding:0.8rem; border-radius:10px; border:1px solid #ddd; outline:none;">
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Product Type</h3>
+                        <label><input type="checkbox" value="Sets"> Sets</label>
+                        <label><input type="checkbox" value="Plushies"> Plushies</label>
+                        <label><input type="checkbox" value="Blocks"> Blocks</label>
+                        <label><input type="checkbox" value="Tech"> Tech</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Price Range</h3>
+                        <div
+                            style="display:flex; justify-content:space-between; margin-bottom:0.5rem; color:var(--text-dark); font-weight:bold;">
+                            <span>$0</span>
+                            <span id="price-val">$200</span>
+                        </div>
+                        <input type="range" class="price-range" id="price-range" min="0" max="200" value="200">
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Rating</h3>
+                        <label><input type="radio" name="rating" value="0" checked> All</label>
+                        <label><input type="radio" name="rating" value="4"> 4★ & Up</label>
+                        <label><input type="radio" name="rating" value="3"> 3★ & Up</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h3>Availability</h3>
+                        <label><input type="checkbox" id="stock-check"> In Stock Only</label>
+                    </div>
+                </aside>
+
+                <!-- Product Grid -->
+                <section class="shop-grid">
+                    <!-- JS Injects Here -->
+                    <div class="loading-state">Loading products... ⏳</div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer container">
+            <div class="footer-card">
+                <div class="footer-links">
+                    <div class="contact-info">
+                        <p>E-mail:<br><strong>kidstoys@gmail.com</strong></p>
+                        <p>Address:<br><strong>Islamabad, Pakistan, (44150)</strong></p>
+                    </div>
+                    <div class="site-links">
+                        <a href="/pages/catalog.html">Catalog</a>
+                        <a href="/pages/support.html">Support</a>
+                    </div>
+                </div>
+                <div class="footer-illustration">
+                    🦒🧸🚂
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 All rights reserved
+            </div>
+        </footer>
+
+
+    </div>
+
+    <script type="module" src="/src/js/catalog.js"></script>
+</body>
+
+</html>

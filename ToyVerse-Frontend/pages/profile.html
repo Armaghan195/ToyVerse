@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ToyVerse</title>
+    <link rel="stylesheet" href="../src/css/variables.css">
+    <link rel="stylesheet" href="../src/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #fff8e1 100%);
+            min-height: 100vh;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            padding: 0 20px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* Profile Picture Section */
+        .profile-picture-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(44, 177, 188, 0.1);
+        }
+
+        .profile-picture-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(44, 177, 188, 0.3);
+            border: 5px solid white;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--gradient-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .upload-overlay:hover {
+            transform: scale(1.1);
+        }
+
+        .upload-overlay::before {
+            content: '📷';
+            font-size: 1.5rem;
+        }
+
+        #profile-picture-input {
+            display: none;
+        }
+
+        .picture-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-delete-picture {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete-picture:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            color: var(--color-teal);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(44, 177, 188, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(44, 177, 188, 0.2);
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-teal);
+            box-shadow: 0 0 0 4px rgba(44, 177, 188, 0.1);
+        }
+
+        .form-group input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Password Section */
+        .password-toggle {
+            color: var(--color-teal);
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--color-pink);
+        }
+
+        .password-fields {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .password-fields.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 8px 20px rgba(44, 177, 188, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(44, 177, 188, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--color-teal);
+            border: 2px solid var(--color-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-teal);
+            color: white;
+        }
+
+        /* Loading State */
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: linear-gradient(135deg, #f44336, #ef5350);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Info Card */
+        .info-card {
+            background: linear-gradient(135deg, rgba(44, 177, 188, 0.1), rgba(195, 55, 100, 0.1));
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card h3 {
+            color: var(--color-teal);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .profile-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar-container"></div>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <p style="color: #666;">Manage your account information and preferences</p>
+        </div>
+
+        <!-- Success/Error Messages -->
+        <div id="success-message" class="success-message"></div>
+        <div id="error-message" class="error-message"></div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <!-- Profile Picture Section -->
+            <div class="profile-picture-section">
+                <div class="profile-picture-container">
+                    <div id="profile-picture" class="profile-picture"></div>
+                    <label for="profile-picture-input" class="upload-overlay"></label>
+                    <input type="file" id="profile-picture-input" accept="image/*">
+                </div>
+                <div class="picture-actions">
+                    <button id="delete-picture-btn" class="btn-delete-picture" style="display: none;">
+                        🗑️ Remove Picture
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Form -->
+            <form id="profile-form">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h2>📝 Basic Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Account Type</label>
+                            <input type="text" id="role" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your.email@example.com">
+                    </div>
+                </div>
+
+                <!-- Password Section -->
+                <div class="form-section">
+                    <h2>🔒 Security</h2>
+
+                    <div class="password-toggle" id="change-password-toggle">
+                        🔑 Click to change password
+                    </div>
+
+                    <div class="password-fields" id="password-fields">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" placeholder="Enter current password">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" id="new-password" placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" id="confirm-password" placeholder="Confirm new password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="info-card">
+                    <h3>📌 Account Information</h3>
+                    <p id="account-info">Member since: Loading...</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="save-btn">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { renderNavbar } from '../src/js/navbar.js';
+        renderNavbar('.navbar-container', 'profile');
+    </script>
+    <script type="module" src="../src/js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed! - Kid Toys</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/variables.css">
+    <style>
+        .confirmation-box {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 600px;
+            margin: 4rem auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-id {
+            font-family: monospace;
+            background: #eee;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .btn-home {
+            margin-top: 2rem;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <div class="confirmation-box">
+            <div class="success-icon">🎉</div>
+            <h1>Thank You!</h1>
+            <p>Your order has been placed successfully.</p>
+            <p>Order ID: <span id="oid" class="order-id">Loading...</span></p>
+
+            <a href="/index.html" class="btn-home">Back to Home</a>
+        </div>
+    </main>
+    <script type="module" src="/src/js/order-confirmation.js"></script>
+</body>
+
+</html>

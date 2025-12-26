@@ -1,0 +1,155 @@
+/* Support Page Styles */
+
+/* Help Search Result */
+.help-search-result {
+    margin-top: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideDown 0.3s ease-out;
+}
+
+.help-search-result.hidden {
+    display: none;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.search-result-header strong {
+    font-size: 1rem;
+}
+
+.close-result-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-result-btn:hover {
+    opacity: 1;
+}
+
+.search-result-content {
+    padding: 1.5rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.search-result-footer {
+    padding: 0.75rem 1.5rem;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.search-result-footer small {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.search-loading {
+    padding: 2rem;
+    text-align: center;
+}
+
+.search-loading p {
+    margin-top: 1rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.typing-indicator span {
+    width: 10px;
+    height: 10px;
+    background: #667eea;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+/* Form Status */
+.form-status {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    animation: slideDown 0.3s ease-out;
+}
+
+.form-status.hidden {
+    display: none;
+}
+
+.form-status.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Contact Form Submit Button States */
+.pill-btn.primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

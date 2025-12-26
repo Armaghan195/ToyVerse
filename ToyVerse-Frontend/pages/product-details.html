@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Kid Toys</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/variables.css">
+    <style>
+        .details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-image-box {
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            aspect-ratio: 1;
+        }
+
+        .product-info h1 {
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .product-info .price {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-info p {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .attributes {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .attr-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .attr-item:last-child {
+            border-bottom: none;
+        }
+
+        .action-area {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .qty-selector button {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .qty-selector input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            flex: 2;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-wishlist {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ddd;
+            font-size: 1.8rem;
+            flex: 0 0 auto;
+            width: 60px;
+            filter: grayscale(1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-wishlist:hover {
+            transform: scale(1.1);
+            border-color: var(--color-teal);
+        }
+
+        .btn-wishlist.wishlisted {
+            filter: grayscale(0);
+            background: white;
+            border-color: #ff6b6b;
+            animation: heartPulse 0.4s ease;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent-blue);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar-container" id="p-navbar"></header>
+
+    <main class="container">
+        <a href="/pages/catalog.html" class="back-link">← Back to Catalog</a>
+
+        <div class="details-container">
+            <div class="product-image-box" id="p-icon">
+                🧸
+            </div>
+            <div class="product-info">
+                <span class="badge" id="p-category">Category</span>
+                <h1 id="p-title">Loading...</h1>
+                <div class="price" id="p-price">$0.00</div>
+                <p id="p-desc">Description goes here...</p>
+
+                <div class="attributes">
+                    <div class="attr-item">
+                        <span>Availability</span>
+                        <span id="p-stock" style="font-weight: bold; color:green;">In Stock</span>
+                    </div>
+                    <div class="attr-item">
+                        <span>Rating</span>
+                        <span id="p-rating">★★★★★</span>
+                    </div>
+                    <div class="attr-item">
+                        <span>Product ID</span>
+                        <span id="p-id">#000</span>
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <div class="qty-selector">
+                        <button onclick="changeQty(-1)">-</button>
+                        <input type="number" id="qty-input" value="1" min="1">
+                        <button onclick="changeQty(1)">+</button>
+                    </div>
+                    <button class="btn-large btn-primary" id="add-to-cart-btn">Add to Cart</button>
+                    <button class="btn-large btn-wishlist" id="wishlist-btn" title="Add to Wishlist">
+                        ❤️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Items Section -->
+        <section class="similar-items-section">
+            <h2>You might also like...</h2>
+            <div class="similar-slider-wrapper" style="position:relative; display:flex; align-items:center;">
+                <button id="swipe-left" class="swipe-btn left" style="display:none;">❮</button>
+                <div class="similar-scroll-container" id="similar-list">
+                    <!-- JS Populated -->
+                </div>
+                <button id="swipe-right" class="swipe-btn right">❯</button>
+            </div>
+        </section>
+
+        <!-- Detailed Description Section (Conditional) -->
+        <section id="more-details-section"
+            style="display:none; margin-top:4rem; padding-bottom:4rem; border-top:1px solid #eee; padding-top:2rem;">
+            <h2 style="font-size:1.8rem; margin-bottom:1rem; color:#333;">More Details</h2>
+            <div id="p-detailed-desc" style="line-height:1.8; color:#555; font-size:1.05rem;">
+                <!-- JS populated -->
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews-section"
+            style="margin-top:4rem; padding-bottom:4rem; border-top:1px solid #eee; padding-top:2rem;">
+            <h2 style="font-size:1.8rem; margin-bottom:2rem; color:#333;">Customer Reviews</h2>
+
+            <div id="reviews-list" style="display:flex; flex-direction:column; gap:20px; margin-bottom:40px;">
+                <!-- JS populated -->
+                <p style="color:#666; font-style:italic;">No reviews yet. Be the first to review!</p>
+            </div>
+
+            <!-- Add Review Form -->
+            <div id="review-form-container" style="background:#f9f9f9; padding:2rem; border-radius:15px;">
+                <h3 style="margin-bottom:1rem;">Write a Review</h3>
+                <form id="add-review-form">
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:5px; font-weight:bold;">Rating</label>
+                        <select id="review-rating"
+                            style="padding:10px; border-radius:8px; border:1px solid #ddd; width:100px;">
+                            <option value="5">★★★★★</option>
+                            <option value="4">★★★★☆</option>
+                            <option value="3">★★★☆☆</option>
+                            <option value="2">★★☆☆☆</option>
+                            <option value="1">★☆☆☆☆</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block; margin-bottom:5px; font-weight:bold;">Your Review</label>
+                        <textarea id="review-text" rows="4"
+                            style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;"
+                            placeholder="Tell us what you think..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-large btn-primary"
+                        style="font-size:1rem; padding:10px 30px;">Submit Review</button>
+                </form>
+                <div id="login-to-review" style="display:none; color:#666;">
+                    <p>Please <a href="/pages/auth.html" style="color:var(--accent-blue); font-weight:bold;">log in</a>
+                        to
+                        write a review.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer container">
+        <div class="footer-card">
+            <div class="footer-links">
+                <div class="contact-info">
+                    <p>E-mail:<br><strong>kidstoys@gmail.com</strong></p>
+                    <p>Address:<br><strong>Islamabad, Pakistan, (44150)</strong></p>
+                </div>
+                <div class="site-links">
+                    <a href="#">Brand suggestions</a>
+                    <a href="/pages/support.html">Support</a>
+                    <a href="#">About</a>
+                </div>
+                <div class="site-links">
+                    <a href="/pages/catalog.html">Catalog</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+            <div class="footer-illustration">
+                🦒🧸🚂
+            </div>
+        </div>
+        <div class="copyright">
+            © 2024 All rights reserved
+        </div>
+    </footer>
+
+    <script type="module" src="/src/js/product-details.js"></script>
+</body>
+
+</html>
