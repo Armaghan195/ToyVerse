@@ -24,7 +24,7 @@ Before you begin, ensure you have the following installed on your system:
 Open your terminal (Command Prompt or PowerShell) and run:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Armaghan195/ToyVerse.git
 cd ToyVerse
 ```
 
