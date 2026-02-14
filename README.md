@@ -13,7 +13,7 @@ Before you begin, ensure you have the following installed on your system:
 1.  **Git**: To clone the repository. [Download Git](https://git-scm.com/downloads)
 2.  **Python 3.10+**: For the backend. [Download Python](https://www.python.org/downloads/)
     *   *Note: Ensure "Add Python to PATH" is checked during installation.*
-3.  **Node.js 18+**: For the frontend. [Download Node.js](https://nodejs.org/)
+3.  **Node.js 18+**: For the frontend.  [Download Node.js](https://nodejs.org/)
 4.  **SQL Server 2022 Express**: The database engine. [Download SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 5.  **SQL Server Management Studio (SSMS)**: To manage the database. [Download SSMS](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
 
